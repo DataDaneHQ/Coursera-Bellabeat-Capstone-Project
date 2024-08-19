@@ -1,0 +1,72 @@
+---
+title: "Summary Stats for multiple metrics in one dataset"
+author: "By Dane Tipene"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+df_print: paged
+---
+
+```{r, echo=FALSE, eval=TRUE}
+install.packages("gridExtra")
+```
+
+```{r setup, include=FALSE, echo=FALSE, eval=TRUE}
+library(gridExtra)
+```
+
+```{r, echo=FALSE, eval=TRUE}
+# Calculate unique users for physical activity
+activity_users <- daily_combined %>%
+  summarise(Users = n_distinct(Id)) %>%
+  mutate(Metric = "Physical Activity")
+
+# Calculate unique users for heart rate
+heartrate_users <- heartrate_seconds %>%
+  summarise(Users = n_distinct(Id)) %>%
+  mutate(Metric = "Heart Rate")
+
+# Calculate unique users for sleep
+sleep_users <- sleep_day %>%
+  summarise(Users = n_distinct(Id)) %>%
+  mutate(Metric = "Sleep")
+
+# Calculate unique users for weight
+weight_users <- weight_log %>%
+  summarise(Users = n_distinct(Id)) %>%
+  mutate(Metric = "Weight")
+
+```
+
+```{r create_the_horizontal_bar_chart, echo=FALSE, results='hide', message=FALSE, fig.width=5, fig.height=3, fig.show='hold'}
+# Create the horizontal bar chart with custom colors and annotations
+p <- ggplot(user_data, aes(x = Percentage, y = Metric, fill = Metric)) +
+  geom_bar(stat = "identity", color = "lightgrey") +
+  scale_fill_manual(values = c("Physical Activity" = "#ff6666", 
+                               "Heart Rate" = "#ffb6b9", 
+                               "Sleep" = "#FF8967", 
+                               "Weight" = "#ffe6e6")) +
+  geom_text(aes(label = paste0(round(Percentage, 1), "%")), 
+            position = position_stack(vjust = 0.5), 
+            color = "black", 
+            size = 3) +
+  theme_minimal() +
+  labs(title = "Percentage of Users Tracking Each Metric",
+       x = "Percentage of Users",
+       y = "Metric") +
+  scale_x_continuous(labels = scales::percent_format(scale = 1)) +
+  theme(legend.position = "none",
+        panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),  
+        plot.margin = margin(t = 20, r = 10, b = 10, l = 10, unit = "pt"))
+
+# Notes to be displayed
+notes <- textGrob("Notes:\n- A total of 33 users were identified, which is 3 more than stated in the dataset description.\n- The data includes four primary metrics: Physical Activity, Sleep, Heart Rate, and Weight.\n- Among these metrics, users clearly valued tracking their physical activity the most, while weight and heart rate were tracked the least. This could be an opportunity to investigate why these metrics are less tracked and how to encourage more users.", 
+                  x = 0, hjust = 0, vjust = 1, gp = gpar(fontsize = 10))
+
+# Arrange the plot and notes side by side
+grid.arrange(p, notes, ncol = 2, widths = c(2/3, 1/3))
+
+```
+
