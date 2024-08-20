@@ -1,4 +1,6 @@
-You can view the full report and analysis [here](https://rpubs.com/DataDaneHQ/1197497).
+[You can view the full report and analysis here](https://rpubs.com/DataDaneHQ/1197497).
+
+<br>
 
 <img src="Images/bellabeat_wrist.png" alt="BellaBeat Wrist" width="300"/>
 
