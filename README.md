@@ -1,4 +1,6 @@
-[You can view the full report and analysis here](https://rpubs.com/DataDaneHQ/1197497).
+# Bellabeat-Capstone-Project
+
+[View the full report and analysis here](https://rpubs.com/DataDaneHQ/1197497).
 
 <br>
 
