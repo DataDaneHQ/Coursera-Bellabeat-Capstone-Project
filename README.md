@@ -12,6 +12,4 @@ The Bellabeat Capstone Project involved a comprehensive analysis of smart device
 
 <br>
 
-### ***License***
-
-*All rights reserved. No part of this repository may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the owner.*
+***License:*** *All rights reserved. No part of this repository may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the owner.*
